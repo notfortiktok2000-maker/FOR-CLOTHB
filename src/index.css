@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600;700;900&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -28,15 +28,59 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media (max-width: 1024px) {
-  [class*="cursor"], .cursor, .cursor-dot, .custom-cursor {
+  .custom-cursor, .cursor-dot {
     display: none !important;
     opacity: 0 !important;
   }
 }
 
 @media (max-width: 768px) {
-  .cursor, .cursor-dot, .custom-cursor, .pointer, [class*="cursor"] {
+  .custom-cursor, .cursor-dot {
     display: none !important;
+  }
+
+  .whatsapp-btn, [class*="whatsapp"], a[href*="wa.me"] {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 100% !important;
+    padding: 1rem !important;
+    margin-top: 1rem !important;
+  }
+
+  .product-image-container,
+  .product-image-wrapper,
+  [class*="product"] > div:first-child,
+  [class*="image-container"] {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 300px !important;
+    overflow: visible !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+
+  .product-image-container img,
+  .product-section img,
+  [class*="product"] img {
+    display: block !important;
+    width: 100% !important;
+    max-width: 320px !important;
+    height: auto !important;
+    margin: 0 auto 2rem auto !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    object-fit: contain !important;
+  }
+
+  .product-section,
+  [class*="product-layout"],
+  [class*="product-container"] {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
   }
 }
 

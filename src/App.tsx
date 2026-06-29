@@ -17,7 +17,6 @@ gsap.registerPlugin(ScrollTrigger);
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [cartItem, setCartItem] = useState<{size: string, quantity: number} | null>(null);
 
   useEffect(() => {
     const handleOpenCart = () => setIsCartOpen(true);
@@ -62,15 +61,12 @@ export default function App() {
         <Hero />
         <ScrollSectionOne />
         <ProductShowcase />
-        <PurchaseSection onAddToCart={(size, quantity) => {
-          setCartItem({size, quantity});
-          setIsCartOpen(true);
-        }} />
+        <PurchaseSection onAddToCart={() => setIsCartOpen(true)} />
       </main>
 
       {!isLoading && <Footer />}
       
-      <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} cartItem={cartItem} />
+      <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </div>
   );
 }

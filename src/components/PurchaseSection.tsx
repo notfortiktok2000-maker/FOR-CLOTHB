@@ -1,92 +1,63 @@
-import { useState } from "react";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface PurchaseSectionProps {
-  onAddToCart: (size: string, quantity: number) => void;
+  onAddToCart: () => void;
 }
 
 export function PurchaseSection({ onAddToCart }: PurchaseSectionProps) {
-  const [selectedSize, setSelectedSize] = useState<string | null>(null);
-  const [quantity, setQuantity] = useState(1);
-  const sizes = ["S", "M", "L", "XL"];
+  const sectionRef = useRef<HTMLElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: "top 75%",
+      }
+    });
+
+    if (contentRef.current) {
+      const elements = contentRef.current.children;
+      tl.fromTo(
+        elements,
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.8, stagger: 0.15, ease: "power2.out" }
+      );
+    }
+  }, []);
 
   return (
-    <section id="purchase" className="relative w-full py-32 bg-black flex flex-col lg:flex-row items-center justify-center gap-16 px-8 max-w-7xl mx-auto">
-      {/* Product Image */}
-      <div 
-        className="w-full lg:w-1/2 relative bg-[#0A0A0A] border border-white/5 overflow-hidden group cursor-none flex items-center justify-center p-4 md:p-8"
-      >
-        <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent z-10 pointer-events-none"></div>
-        <img
-          src="https://i.ibb.co/BHM5MdGY/The-three-line-graphic-NOTFOREVERYONE-202606290057.jpg"
-          alt="NOTFOREVERYONE T-Shirt"
-          className="relative z-20 w-full max-w-[500px] object-contain object-center"
-        />
-      </div>
-
-      {/* Product Details */}
-      <div className="w-full lg:w-1/2 flex flex-col items-start space-y-12">
-        <div>
-          <h2 className="text-3xl font-light tracking-[0.1em] mb-2">Signature Oversized Tee</h2>
-          <p className="text-xl font-thin text-white/70">400 MAD</p>
+    <section ref={sectionRef} id="purchase" className="relative w-full py-32 bg-[#0A0A0A] flex flex-col items-center justify-center px-8">
+      <div ref={contentRef} className="w-full max-w-md flex flex-col items-center text-center space-y-6">
+        
+        <div className="w-full bg-black border border-white/5 p-4 flex justify-center items-center overflow-hidden mb-4">
+          <img
+            src="https://i.ibb.co/BHM5MdGY/The-three-line-graphic-NOTFOREVERYONE-202606290057.jpg"
+            alt="Signature Oversized Tee"
+            className="w-full max-w-[320px] object-contain"
+          />
         </div>
 
-        {/* Size Selector */}
-        <div className="w-full space-y-4">
-          <div className="flex justify-between items-center text-xs tracking-widest uppercase font-light text-white/50">
-            <span>Select Size</span>
-            <span className="cursor-pointer hover:text-white clickable">Size Guide</span>
-          </div>
-          <div className="flex gap-4">
-            {sizes.map((size) => (
-              <button
-                key={size}
-                onClick={() => setSelectedSize(size)}
-                className={`w-12 h-12 flex items-center justify-center text-sm font-light transition-all duration-300 clickable ${
-                  selectedSize === size
-                    ? "bg-white text-black"
-                    : "bg-transparent border border-white/20 text-white hover:border-white"
-                }`}
-              >
-                {size}
-              </button>
-            ))}
-          </div>
+        <div className="space-y-2">
+          <h2 className="text-2xl md:text-3xl font-['Poppins'] font-semibold tracking-wide uppercase text-white">
+            Signature Oversized Tee
+          </h2>
+          <p className="text-xl font-['Poppins'] font-light text-white/70">400 MAD</p>
         </div>
 
-        {/* Quantity and Add to Cart */}
-        <div className="w-full space-y-8">
-          <div className="flex items-center gap-6">
-            <span className="text-xs tracking-widest uppercase font-light text-white/50">Quantity</span>
-            <div className="flex items-center gap-4 border border-white/20 px-4 py-2">
-              <button 
-                onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                className="text-white/50 hover:text-white clickable p-1"
-              >-</button>
-              <span className="w-8 text-center text-sm font-light">{quantity}</span>
-              <button 
-                onClick={() => setQuantity(quantity + 1)}
-                className="text-white/50 hover:text-white clickable p-1"
-              >+</button>
-            </div>
-          </div>
+        <button
+          onClick={onAddToCart}
+          className="w-full h-[56px] bg-black text-white font-['Poppins'] font-semibold text-sm tracking-[0.1em] uppercase border border-white rounded-none hover:bg-white hover:text-black transition-colors duration-300 mt-4"
+        >
+          Add to Cart
+        </button>
 
-          <button
-            onClick={() => {
-              if (selectedSize) {
-                onAddToCart(selectedSize, quantity);
-              } else {
-                alert("Please select a size");
-              }
-            }}
-            className="group relative w-full py-5 bg-transparent border border-white overflow-hidden clickable"
-          >
-            <span className="relative z-10 text-sm tracking-[0.2em] uppercase font-light mix-blend-difference text-white">
-              Add to Cart
-            </span>
-            <div className="absolute inset-0 bg-white transform scale-y-0 origin-bottom transition-transform duration-500 group-hover:scale-y-100" />
-            <div className="absolute bottom-0 left-0 w-full h-[2px] bg-accent transform scale-x-0 transition-transform duration-500 group-hover:scale-x-100 origin-left" />
-          </button>
-        </div>
       </div>
     </section>
   );

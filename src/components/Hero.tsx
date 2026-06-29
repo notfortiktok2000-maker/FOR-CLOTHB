@@ -48,16 +48,19 @@ export function Hero() {
     );
 
     // Subtle parallax for background
-    gsap.to(".hero-bg", {
-      yPercent: 15,
-      ease: "none",
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top top",
-        end: "bottom top",
-        scrub: true,
-      },
-    });
+    const heroBg = document.querySelector(".hero-bg");
+    if (heroBg) {
+      gsap.to(".hero-bg", {
+        yPercent: 15,
+        ease: "none",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    }
   }, []);
 
   return (
@@ -66,7 +69,7 @@ export function Hero() {
       className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden bg-black"
     >
       {/* Background Image with Overlay */}
-      <div className="absolute inset-0 z-0 w-full h-full bg-black/50">
+      <div className="hero-bg absolute inset-0 z-0 w-full h-full bg-black/50">
         <div className="absolute inset-0 bg-black/35" />
       </div>
 
