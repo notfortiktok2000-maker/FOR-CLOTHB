@@ -76,8 +76,10 @@ export function CustomCursor() {
       }
     };
 
-    window.addEventListener("mousemove", moveCursor);
-    window.addEventListener("mouseover", handleMouseOver);
+    if (window.matchMedia("(pointer: fine)").matches) {
+      window.addEventListener("mousemove", moveCursor);
+      window.addEventListener("mouseover", handleMouseOver);
+    }
 
     return () => {
       window.removeEventListener("mousemove", moveCursor);
@@ -89,11 +91,11 @@ export function CustomCursor() {
     <>
       <div
         ref={cursorDotRef}
-        className="fixed top-0 left-0 w-1.5 h-1.5 bg-white rounded-full pointer-events-none z-[9999] mix-blend-difference"
+        className="custom-cursor cursor-dot fixed top-0 left-0 w-1.5 h-1.5 bg-white rounded-full pointer-events-none z-[9999] mix-blend-difference"
       />
       <div
         ref={cursorOutlineRef}
-        className="fixed top-0 left-0 w-8 h-8 border border-accent/50 rounded-full pointer-events-none z-[9998]"
+        className="custom-cursor fixed top-0 left-0 w-8 h-8 border border-accent/50 rounded-full pointer-events-none z-[9998]"
       />
     </>
   );

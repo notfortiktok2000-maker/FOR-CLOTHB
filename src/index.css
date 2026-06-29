@@ -27,6 +27,19 @@ h1, h2, h3, h4, h5, h6 {
   max-width: 100%;
 }
 
+@media (max-width: 1024px) {
+  [class*="cursor"], .cursor, .cursor-dot, .custom-cursor {
+    display: none !important;
+    opacity: 0 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .cursor, .cursor-dot, .custom-cursor, .pointer, [class*="cursor"] {
+    display: none !important;
+  }
+}
+
 @media (max-width: 767px) {
   section {
     padding-left: 1rem !important;

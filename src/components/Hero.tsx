@@ -66,12 +66,7 @@ export function Hero() {
       className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden bg-black"
     >
       {/* Background Image with Overlay */}
-      <div className="absolute inset-0 z-0 w-full h-full">
-        <img 
-          src="/hero-tshirt.jpg" 
-          alt="Floating T-Shirt" 
-          className="hero-bg w-full h-full object-cover object-center absolute inset-0 -top-[15%]" 
-        />
+      <div className="absolute inset-0 z-0 w-full h-full bg-black/50">
         <div className="absolute inset-0 bg-black/35" />
       </div>
 
