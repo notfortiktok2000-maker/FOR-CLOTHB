@@ -24,30 +24,34 @@ export function CartDrawer({ isOpen, onClose }: CheckoutModalProps) {
     if (isOpen) {
       gsap.to(overlayRef.current, { opacity: 1, pointerEvents: "auto", duration: 0.5 });
       
-      const tl = gsap.timeline();
-      
-      tl.to(modalRef.current, { 
-        y: 0, 
-        opacity: 1, 
-        pointerEvents: "auto", 
-        duration: 0.5, 
-        ease: "power3.out" 
-      })
-      .fromTo(".form-field", 
-        { opacity: 0, y: 15 }, 
-        { opacity: 1, y: 0, duration: 0.4, stagger: 0.08, ease: "power2.out" },
-        "-=0.2"
-      )
-      .fromTo(summaryRef.current,
-        { opacity: 0, x: 20 },
-        { opacity: 1, x: 0, duration: 0.5, ease: "power2.out", delay: 0.2 },
-        "-=0.6"
-      )
-      .fromTo(".size-btn",
-        { opacity: 0, scale: 0.8 },
-        { opacity: 1, scale: 1, duration: 0.3, stagger: 0.05, ease: "back.out(1.5)" },
-        "-=0.4"
-      );
+      const ctx = gsap.context(() => {
+        const tl = gsap.timeline();
+        
+        tl.to(modalRef.current, { 
+          y: 0, 
+          opacity: 1, 
+          pointerEvents: "auto", 
+          duration: 0.5, 
+          ease: "power3.out" 
+        })
+        .fromTo(".form-field", 
+          { opacity: 0, y: 15 }, 
+          { opacity: 1, y: 0, duration: 0.4, stagger: 0.08, ease: "power2.out" },
+          "-=0.2"
+        )
+        .fromTo(summaryRef.current,
+          { opacity: 0, x: 20 },
+          { opacity: 1, x: 0, duration: 0.5, ease: "power2.out", delay: 0.2 },
+          "-=0.6"
+        )
+        .fromTo(".size-btn",
+          { opacity: 0, scale: 0.8 },
+          { opacity: 1, scale: 1, duration: 0.3, stagger: 0.05, ease: "back.out(1.5)" },
+          "-=0.4"
+        );
+      }, modalRef);
+
+      return () => ctx.revert();
     } else {
       gsap.to(overlayRef.current, { opacity: 0, pointerEvents: "none", duration: 0.4 });
       gsap.to(modalRef.current, { y: 30, opacity: 0, pointerEvents: "none", duration: 0.4, ease: "power3.in" });
@@ -83,10 +87,10 @@ export function CartDrawer({ isOpen, onClose }: CheckoutModalProps) {
       />
 
       {/* Modal Container */}
-      <div className="fixed inset-0 z-[9995] flex items-center justify-center md:p-6 pointer-events-none">
+      <div className="fixed inset-0 z-[9995] flex items-center justify-center p-0 md:p-6 pointer-events-none">
         <div
           ref={modalRef}
-          className="w-full h-full md:h-auto max-w-5xl bg-[#111111] md:border border-white/5 md:rounded-[16px] flex flex-col md:flex-row transform translate-y-[30px] opacity-0 pointer-events-none overflow-hidden overflow-y-auto"
+          className="w-full h-full md:h-auto max-w-5xl bg-[#111111] md:border border-white/5 rounded-none md:rounded-[16px] flex flex-col md:flex-row transform translate-y-[30px] opacity-0 pointer-events-none overflow-hidden overflow-y-auto"
         >
           {/* Close button - absolute */}
           <button 
@@ -97,7 +101,7 @@ export function CartDrawer({ isOpen, onClose }: CheckoutModalProps) {
           </button>
 
           {/* Left Side - Form */}
-          <div className="w-full md:w-3/5 p-8 md:p-14">
+          <div className="w-full md:w-3/5 p-6 md:p-14">
             <h2 className="form-field text-[14px] font-['Poppins'] font-light text-white/50 tracking-[0.2em] uppercase mb-10">
               Checkout
             </h2>
@@ -166,7 +170,7 @@ export function CartDrawer({ isOpen, onClose }: CheckoutModalProps) {
           </div>
 
           {/* Right Side - Order Summary */}
-          <div ref={summaryRef} className="w-full md:w-2/5 p-8 md:p-14 flex flex-col justify-between bg-[#111111] md:border-l border-white/5">
+          <div ref={summaryRef} className="w-full md:w-2/5 p-6 md:p-14 flex flex-col justify-between bg-[#111111] md:border-l border-white/5">
             <div>
               <h2 className="text-[14px] font-['Poppins'] font-light text-white/50 tracking-[0.2em] uppercase mb-10">
                 Order Summary
