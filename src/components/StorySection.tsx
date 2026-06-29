@@ -24,7 +24,8 @@ export function StorySection() {
           ease: "power3.out",
           scrollTrigger: {
             trigger: containerRef.current,
-            start: "top 60%",
+            start: "top 80%",
+            toggleActions: "play none none none",
           },
         }
       );

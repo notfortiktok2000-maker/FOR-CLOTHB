@@ -18,29 +18,17 @@ export function ScrollSectionOne() {
       },
     });
 
-    // Initial state
-    gsap.set([text2Ref.current, text3Ref.current], {
-      opacity: 0,
-      y: 100,
-      scale: 0.9,
-    });
-
     // Animate Text 2
     tl.fromTo(text2Ref.current, { opacity: 0, y: 50 }, { opacity: 1, y: 0, scale: 1, duration: 1 })
-      .to({}, { duration: 1.5 }) // Hold
-      .to(text2Ref.current, { opacity: 0, y: -50, scale: 1.1, duration: 1 })
-
       // Animate Text 3
-      .fromTo(text3Ref.current, { opacity: 0, y: 50 }, { opacity: 1, y: 0, scale: 1, duration: 1 }, "-=0.5")
-      .to({}, { duration: 1.5 }) // Hold
-      .to(text3Ref.current, { opacity: 0, y: -50, scale: 1.1, duration: 1 });
+      .fromTo(text3Ref.current, { opacity: 0, y: 50 }, { opacity: 1, y: 0, scale: 1, duration: 1 }, "-=0.5");
   }, []);
 
   return (
-    <section ref={containerRef} className="relative w-full h-screen bg-black text-white overflow-hidden flex items-center justify-center">
+    <section ref={containerRef} className="relative w-full min-h-screen bg-black text-white overflow-hidden flex flex-col items-center justify-center gap-16 py-32">
       <h2
         ref={text2Ref}
-        className="absolute text-5xl md:text-7xl lg:text-9xl font-light tracking-tight text-center px-4"
+        className="text-5xl md:text-7xl lg:text-9xl font-light tracking-tight text-center px-4"
       >
         We create <br />
         <span className="font-medium text-accent">identity.</span>
@@ -48,7 +36,7 @@ export function ScrollSectionOne() {
 
       <h2
         ref={text3Ref}
-        className="absolute text-5xl md:text-7xl lg:text-9xl font-light tracking-tight text-center px-4"
+        className="text-5xl md:text-7xl lg:text-9xl font-light tracking-tight text-center px-4"
       >
         Made for <br />
         <span className="font-thin uppercase tracking-[0.2em] text-4xl md:text-6xl lg:text-8xl mt-4 block">the few.</span>

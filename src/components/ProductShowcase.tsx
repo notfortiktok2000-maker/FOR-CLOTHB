@@ -37,6 +37,7 @@ export function ProductShowcase() {
         scrollTrigger: {
           trigger: infoRef.current,
           start: "top 80%",
+          toggleActions: "play none none none",
         },
       }
     );
@@ -55,9 +56,9 @@ export function ProductShowcase() {
         
         <img
           ref={imageRef}
-          src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+          src="https://i.ibb.co/pjHbSPXP/Product-photography-white-oversized-heavyweight-202606290057.jpg"
           alt="The Signature Club T-Shirt"
-          className="relative z-10 w-full max-w-[500px] h-auto object-cover filter contrast-125 brightness-90 transform-style-3d drop-shadow-2xl grayscale"
+          className="relative z-10 w-full max-w-full md:max-w-[500px] h-auto object-contain object-center filter transform-style-3d drop-shadow-2xl grayscale"
         />
       </div>
 
